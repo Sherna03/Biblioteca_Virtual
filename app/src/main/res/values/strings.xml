@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Biblioteca Virtual</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="imgprofile">imgprofile</string>
+    <string name="google">google</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="telefono">Telefono</string>
+    <string name="username">Username</string>
+</resources>
