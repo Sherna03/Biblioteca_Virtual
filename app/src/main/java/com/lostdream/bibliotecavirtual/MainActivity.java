@@ -2,15 +2,24 @@ package com.lostdream.bibliotecavirtual;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.splashscreen.SplashScreen;
+import androidx.lifecycle.ViewModel;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -23,9 +32,12 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SharedPreferences preferences;
     EditText Email, Password;
     Button login, register;
 
@@ -34,20 +46,37 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         Email = findViewById(R.id.Email);
         Password = findViewById(R.id.Password);
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
+        ImageButton google = (ImageButton)findViewById(R.id.google);
+        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
+
+
+        validarSesion();
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Logins();
+                //Logins();
+                correoValido();
             }
         });
+
+        google.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "En construcción, lamento los inconvenientes...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,13 +87,55 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void validarSesion(){
+        String email_usuario = preferences.getString("email_usuario", null);
+        String password_usuario = preferences.getString("password_usuario", null);
+
+        if (email_usuario != null && password_usuario != null){
+            irInicio();
+        }
+    }
+
+    private void irInicio(){
+        Intent inicio = new Intent(this, Inicio.class);
+        //inicio.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(inicio);
+        finish();
+    }
+
+    private void correoValido(){
+        email = Email.getText().toString().trim();
+        password = Password.getText().toString().trim();
+
+        Pattern patternEmail = Pattern
+                .compile("^[_A-Za-z0-9\\+]+(\\.[_A-Za-z0-9]+)*@"
+                        + "[_A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{3,})$");
+        Matcher matcherEmail = patternEmail.matcher(email);
+
+
+        if (TextUtils.isEmpty(email)){
+            Toast.makeText(this, "Ingrese un correo", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if (!matcherEmail.find()){
+            Toast.makeText(this, "Ingrese un correo valido", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if (TextUtils.isEmpty(password)){
+            Toast.makeText(this, "Ingresa una contraseña", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if (password.length() < 8){
+            Toast.makeText(this, "La contraseña ingresada es muy corta", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else {
+            Logins();
+        }
+    }
+
     public void Logins(){
 
-        if(Email.getText().toString().equals("")){
-            Toast.makeText(this, "Ingrese un correo", Toast.LENGTH_SHORT).show();
-        } else if (Password.getText().toString().equals("")){
-            Toast.makeText(this, "Ingresa una contraseña", Toast.LENGTH_SHORT).show();
-        } else {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setMessage("Loading...");
             progressDialog.show();
@@ -78,10 +149,18 @@ public class MainActivity extends AppCompatActivity {
                     progressDialog.dismiss();
 
                     if (response.equalsIgnoreCase("Login success")) {
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putString("email_usuario", email);
+                        editor.putString("password_usuario", password);
+                        editor.commit();
+
                         Email.setText("");
                         Password.setText("");
 
-                        startActivity(new Intent(getApplicationContext(), Inicio.class));
+                        Intent inicio = new Intent(MainActivity.this, Inicio.class);
+                        inicio.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(inicio);
+                        //startActivity(new Intent(getApplicationContext(), Inicio.class));
                     } else {
                         Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
                     }
@@ -104,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
             };
             RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
             requestQueue.add(request);
-        }
 
     }
 

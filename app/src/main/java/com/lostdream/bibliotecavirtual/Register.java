@@ -7,6 +7,7 @@ import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,8 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
 
@@ -50,13 +53,13 @@ public class Register extends AppCompatActivity {
             public void onClick(View view) {
                 // Lamar la funcion para ingresar datos
 
-                emailRegistrado();
-                //registroDatos();
+                emailAndPassword();
             }
         });
     }
 
-    private void emailRegistrado(){
+
+    private void emailAndPassword(){
         String email = Email.getText().toString().trim();
         String username = Username.getText().toString().trim();
         String nombre = Nombre.getText().toString().trim();
@@ -64,9 +67,14 @@ public class Register extends AppCompatActivity {
         String telefono = Telefono.getText().toString().trim();
         String password = Password.getText().toString().trim();
 
+        Pattern patternEmail = Pattern
+                .compile("^[_A-Za-z0-9\\+]+(\\.[_A-Za-z0-9]+)*@"
+                        + "[_A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{3,})$");
+        Matcher matcherEmail = patternEmail.matcher(email);
+
         // Comprobar que las casillas no se encuentren vacias
 
-         if(username.isEmpty()){
+        if(username.isEmpty()){
             Username.setError("Rellene los Datos");
             return;
         } else if (nombre.isEmpty()){
@@ -78,50 +86,64 @@ public class Register extends AppCompatActivity {
         } else if (telefono.isEmpty()){
             Telefono.setError("Rellene los Datos");
             return;
-        } else if (email.isEmpty()) {
+        } else if (TextUtils.isEmpty(email)){
             Email.setError("Rellene los Datos");
             return;
-        } else if (password.isEmpty()){
+        } else if (!matcherEmail.find()){
+            Toast.makeText(this, "Ingrese un correo valido", Toast.LENGTH_SHORT).show();
+            Email.setError("Invalid Email");
+            return;
+        } else if (TextUtils.isEmpty(password)){
             Password.setError("Rellene los Datos");
             return;
+        } else if (password.length() < 8){
+            Toast.makeText(this, "La contraseña ingresada es muy corta", Toast.LENGTH_SHORT).show();
+            Password.setError("Password short");
+            return;
+        } else {
+            emailRegistrado();
         }
+    }
 
-        else {
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Comprobando");
-            progressDialog.show();
+    private void emailRegistrado(){
 
-            StringRequest request = new StringRequest(Request.Method.POST, "https://cbnknhhy.lucusvirtual.es/TestEmail.php", new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    progressDialog.dismiss();
+        String email = Email.getText().toString().trim();
 
-                    if (response.equalsIgnoreCase("Email ya registrado")) {
-                        Email.setError("Email ya registrado");
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Comprobando");
+        progressDialog.show();
 
-                    } else {
-                        Toast.makeText(Register.this, response, Toast.LENGTH_SHORT).show();
-                        registroDatos();
-                    }
+        StringRequest request = new StringRequest(Request.Method.POST, "https://cbnknhhy.lucusvirtual.es/TestEmail.php", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressDialog.dismiss();
+
+                if (response.equalsIgnoreCase("Email ya registrado")) {
+                    Email.setError("Email ya registrado");
+
+                } else {
+                    Toast.makeText(Register.this, response, Toast.LENGTH_SHORT).show();
+                    registroDatos();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Toast.makeText(Register.this, error.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                }
-            }){
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Toast.makeText(Register.this, error.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
 
-                    Map<String, String> params = new HashMap<>();
-                    params.put("email", email);
-                    return params;
-                }
-            };
-            RequestQueue requestQueue = Volley.newRequestQueue(Register.this);
-            requestQueue.add(request);
-        }
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(Register.this);
+        requestQueue.add(request);
+
     }
 
 
@@ -149,8 +171,9 @@ public class Register extends AppCompatActivity {
                     Toast.makeText(Register.this, "Datos insertados", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
 
-                    Intent intent = new Intent(Register.this, Inicio.class);
+                    Intent intent = new Intent(Register.this, MainActivity.class);
                     startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(Register.this, response, Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
