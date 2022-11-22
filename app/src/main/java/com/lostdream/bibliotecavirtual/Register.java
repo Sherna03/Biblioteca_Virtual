@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +30,8 @@ import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
 
-    EditText Username, Nombre, Apellido, Telefono, Email, Password;
+    EditText Username, Nombre, Apellido, Telefono, Email;
+    TextInputEditText Password;
     Button register;
 
     @Override
