@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "18951477099",
+    "project_id": "biblioteca-virtual-574f6",
+    "storage_bucket": "biblioteca-virtual-574f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18951477099:android:6950af689bf2578b761e2e",
+        "android_client_info": {
+          "package_name": "com.lostdream.bibliotecavirtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18951477099-1pguforp58s8h0kt2sbpt19tt1spevnt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lostdream.bibliotecavirtual",
+            "certificate_hash": "ae569794d96b5743f0d56c891fb610bfc554e4c8"
+          }
+        },
+        {
+          "client_id": "18951477099-5pjujh6aeq46inc4450uo4ms1jadkfvk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQcpZiFU54kNUEH6GRoJgN_Q7OvRKzp6E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18951477099-5pjujh6aeq46inc4450uo4ms1jadkfvk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -62,6 +62,9 @@ public class Register extends AppCompatActivity {
 
 
     private void emailAndPassword(){
+
+        // Llamar el texto en los cuadros
+
         String email = Email.getText().toString().trim();
         String username = Username.getText().toString().trim();
         String nombre = Nombre.getText().toString().trim();
@@ -69,24 +72,53 @@ public class Register extends AppCompatActivity {
         String telefono = Telefono.getText().toString().trim();
         String password = Password.getText().toString().trim();
 
+        //Permitir unicamente un correo valido
         Pattern patternEmail = Pattern
-                .compile("^[_A-Za-z0-9\\+]+(\\.[_A-Za-z0-9]+)*@"
-                        + "[_A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{3,})$");
+                .compile("^[_A-Za-zñÑ0-9\\+]+(\\.[_A-Za-zñÑ0-9]+)*@"
+                        + "[a-z0-9-]+(\\.[a-z0-9]+)*(\\.[a-z]{3,})$");
         Matcher matcherEmail = patternEmail.matcher(email);
+
+        //Permitir unicamente texto del abecedario
+        Pattern patternText = Pattern
+                .compile("^([0-9]?+[_A-Za-z]+[0-9]?+[0-9]?){2,12}$");
+        Matcher matcherUsuario = patternText.matcher(username);
+
+        //Permitir unicamente texto del abecedario español y un espacio opcional
+        Pattern patternNombreCompleto = Pattern
+                .compile("^([A-Za-zñÑáéíóúÁÉÍÓÚ]+[ ]?){2,12}$");
+        Matcher matcherNombre = patternNombreCompleto.matcher(nombre);
+        Matcher matcherApellido = patternNombreCompleto.matcher(apellido);
+
+        //Permitir unicamente numeros
+        Pattern patternTelefono = Pattern
+                .compile("^[0-9]{10,10}$");
+        Matcher matcherTelefono = patternTelefono.matcher(telefono);
 
         // Comprobar que las casillas no se encuentren vacias
 
-        if(username.isEmpty()){
+        if(username.isEmpty() | username.length() <= 1){
             Username.setError("Rellene los Datos");
             return;
-        } else if (nombre.isEmpty()){
+        } else if (!matcherUsuario.find()){
+            Username.setError("Usuario no valido");
+            return;
+        } else if (nombre.isEmpty() | nombre.length() <= 1){
             Nombre.setError("Rellene los Datos");
             return;
-        } else if (apellido.isEmpty()){
+        } else if (!matcherNombre.find()){
+            Nombre.setError("Nombre no valido");
+            return;
+        } else if (apellido.isEmpty() | apellido.length() <= 1){
             Apellido.setError("Rellene los Datos");
+            return;
+        } else if (!matcherApellido.find()){
+            Apellido.setError("Apellido no valido");
             return;
         } else if (telefono.isEmpty()){
             Telefono.setError("Rellene los Datos");
+            return;
+        } else if (!matcherTelefono.find()){
+            Telefono.setError("Telefono no valido");
             return;
         } else if (TextUtils.isEmpty(email)){
             Email.setError("Rellene los Datos");

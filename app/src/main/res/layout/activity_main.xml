@@ -59,7 +59,8 @@
             android:backgroundTint="#f66bc2"
             android:ems="10"
             android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
