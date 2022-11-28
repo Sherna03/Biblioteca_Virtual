@@ -16,4 +16,7 @@
     <string name="profile">PROFILE</string>
     <string name="cerrar_sesion">Cerrar Sesion</string>
     <string name="lista">Lista</string>
+    <string name="imgpanel">ImgPanel</string>
+    <string name="libro">Libro</string>
+    <string name="titulo">TITULO</string>
 </resources>

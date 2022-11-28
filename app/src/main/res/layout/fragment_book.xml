@@ -1,15 +1,385 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Book">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LIBROS"
-        android:textSize="25dp"
-        android:layout_centerInParent="true"/>
+        tools:context=".Book">
 
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/Imagen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:contentDescription="@string/imgpanel"
+            android:src="@drawable/no_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/Reciente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rectangulo_difuminado"
+            android:gravity="center"
+            android:text="Agregados Recientemete"
+            style="@style/Theme.AppCompat.NoActionBar"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Imagen" />
+
+
+        <HorizontalScrollView
+            android:id="@+id/ScrollReciente"
+            android:layout_width="wrap_content"
+            android:layout_height="270dp"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Reciente">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/Reciente_Book_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar" />
+
+                <Button
+                    android:id="@+id/Reciente_Book_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar" />
+
+                <Button
+                    android:id="@+id/Reciente_Book_3"
+                    style="@style/Theme.AppCompat.NoActionBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/Reciente_Book_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Reciente_Book_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
+        <TextView
+            android:id="@+id/Populares"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rectangulo_difuminado"
+            android:gravity="center"
+            android:text="Populares"
+            style="@style/Theme.AppCompat.NoActionBar"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ScrollReciente" />
+
+        <HorizontalScrollView
+            android:id="@+id/ScrollPopulares"
+            android:layout_width="wrap_content"
+            android:layout_height="270dp"
+            android:layout_marginTop="24dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Populares">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/Populares_Book_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Populares_Book_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Populares_Book_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Populares_Book_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Populares_Book_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/Leyendo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rectangulo_difuminado"
+            android:gravity="center"
+            android:text="Continuar leyendo"
+            style="@style/Theme.AppCompat.NoActionBar"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ScrollPopulares" />
+
+        <HorizontalScrollView
+            android:id="@+id/ScrollSeguir"
+            android:layout_width="wrap_content"
+            android:layout_height="270dp"
+            android:layout_marginTop="24dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Leyendo">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/Leyendo_Book_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Leyendo_Book_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Leyendo_Book_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Leyendo_Book_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Leyendo_Book_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/Favoritos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/rectangulo_difuminado"
+            android:gravity="center"
+            android:text="Favoritos"
+            style="@style/Theme.AppCompat.NoActionBar"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ScrollSeguir" />
+
+        <HorizontalScrollView
+            android:id="@+id/ScrollFavoritos"
+            android:layout_width="wrap_content"
+            android:layout_height="270dp"
+            android:layout_marginTop="24dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Favoritos">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                style="@style/Theme.AppCompat.NoActionBar">
+
+                <Button
+                    android:id="@+id/Favoritos_Book_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Favoritos_Book_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Favoritos_Book_3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Favoritos_Book_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+                <Button
+                    android:id="@+id/Favoritos_Book_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:layout_margin="7dp"
+                    android:background="@drawable/books"
+                    android:text="@string/libro"
+                    android:textSize="20sp"
+                    style="@style/Theme.AppCompat.NoActionBar"/>
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
