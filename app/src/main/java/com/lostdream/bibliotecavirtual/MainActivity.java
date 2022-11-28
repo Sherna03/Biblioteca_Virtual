@@ -1,36 +1,20 @@
 package com.lostdream.bibliotecavirtual;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
-import androidx.lifecycle.ViewModel;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -45,85 +29,85 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
-    private SharedPreferences preferences;
+
+    //Variables de objetos de interfaz llamados
     TextInputEditText Password;
     EditText Email;
     Button login, register;
 
+    //Variables privadas para el inicio de sesion con google
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
-    // [START declare_auth]
+    // Variable privarada para verificacion con Firebase
     private FirebaseAuth mAuth;
-    // [END declare_auth]
 
+    // Variable privada
     private GoogleSignInClient mGoogleSignInClient;
 
+    // Variables
     String email, password;
-    String url = "https://cbnknhhy.lucusvirtual.es/login.php";
+    //String url = "https://cbnknhhy.lucusvirtual.es/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Token Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
+        // Google singin
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
-
+        // Llamar objetos de interfaz
         Email = findViewById(R.id.Email);
         Password = findViewById(R.id.Password);
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
         ImageButton google = (ImageButton)findViewById(R.id.google);
-        preferences = getSharedPreferences("Preferences", MODE_PRIVATE);
 
-        validarSesion();
 
+        // Boton Login
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Logins();
+                //Validar correo
                 correoValido();
             }
         });
 
+        // Boton Google
         google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 signIn();
-
-                //Toast.makeText(getApplicationContext(), "En construcción, lamento los inconvenientes...", Toast.LENGTH_SHORT).show();
             }
         });
 
-
+        // Boton Registrar
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Cambiar a actividad Registro
                 Intent intent = new Intent(MainActivity.this, Register.class);
                 startActivity(intent);
             }
         });
     }
 
+    // Comprobar inicio de google al iniciar
     @Override
     public void onStart() {
         super.onStart();
@@ -132,11 +116,11 @@ public class MainActivity extends AppCompatActivity {
         updateUI(currentUser);
     }
 
+    // Validar inicio de sesion con boton google
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
@@ -151,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Inicio de sesion con boton Google
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
@@ -171,36 +156,23 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    // Metodo para iniciar sesion
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    // Metodo para saber si el usuario ya ha iniciado sesion anteriormente
     private void updateUI(FirebaseUser user) {
         FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
         if (user1 != null){
-            Intent intent = new Intent(MainActivity.this, Inicio.class);
-            startActivity(intent);
-            finish();
+            Intent inicio = new Intent(MainActivity.this, Inicio.class);
+            inicio.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(inicio);
         }
     }
 
-    private void validarSesion(){
-        String email_usuario = preferences.getString("email_usuario", null);
-        String password_usuario = preferences.getString("password_usuario", null);
-
-        if (email_usuario != null && password_usuario != null){
-            irInicio();
-        }
-    }
-
-    private void irInicio(){
-        Intent inicio = new Intent(this, Inicio.class);
-        //inicio.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(inicio);
-        finish();
-    }
-
+    // Validar que el correo introducido sea un correo
     private void correoValido(){
         email = Email.getText().toString().trim();
         password = Password.getText().toString().trim();
@@ -213,75 +185,49 @@ public class MainActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(email)){
             Toast.makeText(this, "Ingrese un correo", Toast.LENGTH_SHORT).show();
-            return;
         }
         else if (!matcherEmail.find()){
             Toast.makeText(this, "Ingrese un correo valido", Toast.LENGTH_SHORT).show();
-            return;
         }
         else if (TextUtils.isEmpty(password)){
             Toast.makeText(this, "Ingresa una contraseña", Toast.LENGTH_SHORT).show();
-            return;
         }
         else if (password.length() < 8){
             Toast.makeText(this, "La contraseña ingresada es muy corta", Toast.LENGTH_SHORT).show();
-            return;
         }
         else {
             Logins();
         }
     }
 
+    // Metodo para iniciar con email y password
     public void Logins(){
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
 
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Loading...");
-            progressDialog.show();
+        email = Email.getText().toString().trim();
+        password = Password.getText().toString().trim();
 
-            email = Email.getText().toString().trim();
-            password = Password.getText().toString().trim();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
 
-            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    progressDialog.dismiss();
+                        if (task.isSuccessful()){
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                            Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
-                    if (response.equalsIgnoreCase("Login success")) {
-                        SharedPreferences.Editor editor = preferences.edit();
-                        editor.putString("email_usuario", email);
-                        editor.putString("password_usuario", password);
-                        editor.commit();
-
-                        Email.setText("");
-                        Password.setText("");
-
-                        Intent inicio = new Intent(MainActivity.this, Inicio.class);
-                        inicio.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(inicio);
-                        //startActivity(new Intent(getApplicationContext(), Inicio.class));
-                    } else {
-                        Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
+                            Intent inicio = new Intent(MainActivity.this, Inicio.class);
+                            inicio.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(inicio);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Email or Password Incorret", Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    progressDialog.dismiss();
-                    Toast.makeText(MainActivity.this, error.getMessage().toString(), Toast.LENGTH_SHORT).show();
-                }
-            }){
-                @Override
-                protected Map<String, String> getParams() throws AuthFailureError {
-
-                    Map<String, String> params = new HashMap<>();
-                    params.put("email", email);
-                    params.put("password", password);
-                    return params;
-                }
-            };
-            RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
-            requestQueue.add(request);
-
+                });
     }
 
 }
