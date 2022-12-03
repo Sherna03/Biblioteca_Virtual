@@ -42,3 +42,34 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+
+
+                FRAGMENT
+
+     @Override
+         protected void onCreate(Bundle savedInstanceState) {
+             super.onCreate(savedInstanceState);
+             setContentView(R.layout.activity_inicio);
+
+             bottomNavigationView = findViewById(R.id.BottonNav);
+
+             getSupportFragmentManager().beginTransaction().add(R.id.container, book).commit();
+
+             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                 @Override
+                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                     switch (item.getItemId()){
+                         case R.id.Book:
+                             getSupportFragmentManager().beginTransaction().replace(R.id.container, book).commit();
+                             return true;
+                         case R.id.Search:
+                             getSupportFragmentManager().beginTransaction().replace(R.id.container, search).commit();
+                             return true;
+                         case R.id.Profile:
+                             getSupportFragmentManager().beginTransaction().replace(R.id.container, profile).commit();
+                             return true;
+                     }
+                     return false;
+                 }
+             });
+         }

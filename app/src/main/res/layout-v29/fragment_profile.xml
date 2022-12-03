@@ -29,7 +29,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/Ajustes"
         app:layout_constraintEnd_toEndOf="@+id/Ajustes"
         app:layout_constraintStart_toStartOf="@+id/Ajustes"
-        app:layout_constraintTop_toTopOf="@+id/Ajustes" />
+        app:layout_constraintTop_toTopOf="@+id/Ajustes"
+        android:forceDarkAllowed="false"/>
 
     <TextView
         android:id="@+id/textView2"

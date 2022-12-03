@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#265077">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".Book">
+
+        <View
+            android:id="@+id/rectangle_2"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/barra"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:forceDarkAllowed="false"/>
+
+        <View
+            android:id="@+id/rectangle_1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/barra2"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:forceDarkAllowed="false"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/imgprofile"
+            android:elevation="5dp"
+            app:layout_constraintEnd_toEndOf="@+id/rectangle_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_baseline_circle_24"
+            app:layout_constraintStart_toStartOf="@+id/Nuevos"
+            app:layout_constraintTop_toTopOf="@+id/Nuevos" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_baseline_circle_24"
+            app:layout_constraintEnd_toEndOf="@+id/Nuevos"
+            app:layout_constraintTop_toTopOf="@+id/Nuevos" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/shadow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rectangle_1" />
+
+        <TextView
+            android:id="@+id/Titulo_App"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="14dp"
+            android:elevation="4dp"
+            android:text="@string/biblioteca"
+            android:textAppearance="@style/Titulo_App"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rectangle_1" />
+
+        <View
+            android:id="@+id/Nuevos"
+            android:layout_width="331dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/book_title"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rectangle_1" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:elevation="4dp"
+            android:text="Nuevos Libros"
+            android:textAppearance="@style/Titulo_Book"
+            app:layout_constraintBottom_toBottomOf="@+id/Nuevos"
+            app:layout_constraintEnd_toEndOf="@+id/Nuevos"
+            app:layout_constraintStart_toStartOf="@+id/Nuevos"
+            app:layout_constraintTop_toTopOf="@+id/Nuevos" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="325dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/shadow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Nuevos" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/NuevosLibrosView"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="16dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Nuevos" />
+
+        <View
+            android:id="@+id/Destacados"
+            android:layout_width="331dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/book_title"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/NuevosLibrosView" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_baseline_circle_24"
+            app:layout_constraintStart_toStartOf="@+id/Destacados"
+            app:layout_constraintTop_toTopOf="@+id/Destacados" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="10dp"
+            android:elevation="6dp"
+            android:src="@drawable/ic_baseline_circle_24"
+            app:layout_constraintEnd_toEndOf="@+id/Destacados"
+            app:layout_constraintTop_toTopOf="@+id/Destacados" />
+
+        <View
+            android:layout_width="325dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="1dp"
+            android:background="@drawable/shadow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.54"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Destacados" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:elevation="4dp"
+            android:text="Destacados"
+            android:textAppearance="@style/Titulo_Book"
+            app:layout_constraintBottom_toBottomOf="@+id/Destacados"
+            app:layout_constraintEnd_toEndOf="@+id/Destacados"
+            app:layout_constraintStart_toStartOf="@+id/Destacados"
+            app:layout_constraintTop_toTopOf="@+id/Destacados" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/DestacadosLibrosView"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="16dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingStart="50dp"
+            android:paddingEnd="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Destacados" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
