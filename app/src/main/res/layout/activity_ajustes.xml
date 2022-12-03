@@ -7,6 +7,28 @@
     tools:context=".Ajustes"
     android:background="#EDEDED">
 
+    <View
+        android:id="@+id/view7"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ajustes_cuadrado"
+        app:layout_constraintBottom_toTopOf="@+id/Cerrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/correoProfile"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="email@email.com"
+        android:textAppearance="@style/Titulo_Book"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view7" />
 
     <View
         android:id="@+id/view4"
@@ -16,7 +38,8 @@
         android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:forceDarkAllowed="false"/>
 
     <View
         android:layout_width="match_parent"
@@ -44,10 +67,11 @@
         android:id="@+id/Cerrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_cerrarsesion"
         android:text="@string/cerrar_sesion"
         android:textAppearance="@style/Titulo_Book"
         android:textSize="20sp"
-        android:background="@drawable/background_ajustes_animation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

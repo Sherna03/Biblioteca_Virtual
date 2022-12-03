@@ -7,18 +7,24 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Ajustes extends AppCompatActivity {
 
     Button cerrarSesionA;
+    TextView correo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajustes);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        correo = findViewById(R.id.correoProfile);
         cerrarSesionA = findViewById(R.id.Cerrar);
         cerrarSesionA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +32,12 @@ public class Ajustes extends AppCompatActivity {
                 cerrarSesion();
             }
         });
+
+        if (user!=null){
+            String gmail = user.getEmail();
+
+            correo.setText(gmail);
+        }
 
 
     }

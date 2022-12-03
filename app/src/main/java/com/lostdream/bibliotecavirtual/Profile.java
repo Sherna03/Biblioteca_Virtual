@@ -24,6 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -34,6 +35,7 @@ import com.squareup.picasso.Picasso;
 public class Profile extends Fragment {
 
     ImageView imgProfile;
+    TextView username;
 
     BottomNavigationView bottomNavigationView;
 
@@ -65,10 +67,12 @@ public class Profile extends Fragment {
         View root = inflater.inflate(R.layout.fragment_profile, container, false);
 
         imgProfile = root.findViewById(R.id.imgProfile);
+        username = root.findViewById(R.id.usernameProfile);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
-            //String name = user.getDisplayName();
-            //String gmail = user.getEmail();
+            String name = user.getDisplayName();
+
+            username.setText(name);
 
             Picasso.get().load(user.getPhotoUrl()).placeholder(R.drawable.login).into(imgProfile);
         } else {
