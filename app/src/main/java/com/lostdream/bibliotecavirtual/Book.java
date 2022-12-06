@@ -1,5 +1,6 @@
 package com.lostdream.bibliotecavirtual;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,15 +17,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
-public class Book extends Fragment {
+public class Book extends Fragment implements ClickedListener{
 
 
     ImageView imgProfile;
@@ -35,7 +40,6 @@ public class Book extends Fragment {
 
     }
 
-    private Button buttonLeer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,9 +59,6 @@ public class Book extends Fragment {
         imgProfile = root.findViewById(R.id.imgProfile);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
-            //String name = user.getDisplayName();
-            //String gmail = user.getEmail();
-
             Picasso.get().load(user.getPhotoUrl()).placeholder(R.drawable.login).into(imgProfile);
         } else {
             getContext();
@@ -83,8 +84,8 @@ public class Book extends Fragment {
         bookLists.add(bookListSecond);
 
         BookList bookListThird = new BookList();
-        bookListThird.imageUrl = "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/sci-fi-book-cover-template-a1ec26573b7a71617c38ffc6e356eef9_screen.jpg?ts=1636980113";
-        bookListThird.title = "The Arrivals";
+        bookListThird.imageUrl = "https://imagessl7.casadellibro.com/a/l/t7/77/9788401027277.jpg";
+        bookListThird.title = "Diario De Ana Frank";
         bookListThird.starRating = 4.2f;
         bookLists.add(bookListThird);
 
@@ -94,7 +95,7 @@ public class Book extends Fragment {
         bookListFourth.starRating = 3.9f;
         bookLists.add(bookListFourth);
 
-        NuevosLibrosView.setAdapter(new BookListAdapter(bookLists));
+        NuevosLibrosView.setAdapter(new BookListAdapter(bookLists, NuevosLibrosView, this));
 
         NuevosLibrosView.setClipToPadding(false);
         NuevosLibrosView.setClipChildren(false);
@@ -112,6 +113,8 @@ public class Book extends Fragment {
         });
 
         NuevosLibrosView.setPageTransformer(compositePageTransformer);
+
+
 
         //Libros Destacados
 
@@ -141,7 +144,7 @@ public class Book extends Fragment {
         bookList2Fourth.starRating = 4.6f;
         bookLists2.add(bookList2Fourth);
 
-        DestacadosLibrosView.setAdapter(new BookListAdapter(bookLists2));
+        DestacadosLibrosView.setAdapter(new BookListAdapter(bookLists2, DestacadosLibrosView, this));
 
         DestacadosLibrosView.setClipToPadding(false);
         DestacadosLibrosView.setClipChildren(false);
@@ -153,4 +156,21 @@ public class Book extends Fragment {
 
         return root;
     }
+
+    @Override
+    public void onPictureClicked(int position, String tituloB) {
+
+        //Toast.makeText(getContext(), tituloB, Toast.LENGTH_SHORT).show();
+
+        //Iniciar Fragment
+        Description_Books description_books = new Description_Books();
+        assert getFragmentManager() != null;
+        description_books.show(getFragmentManager(), "Description Book");
+
+        //Enviar el titulo al fragment
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("titulo", tituloB);
+        Description_Books.Rdata(bundle);
+    }
+
 }

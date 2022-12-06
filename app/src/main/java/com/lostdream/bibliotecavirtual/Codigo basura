@@ -73,3 +73,56 @@
                  }
              });
          }
+
+
+
+                 mAuth.createUserWithEmailAndPassword(email, password)
+                         .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                             @Override
+                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                 if (task.isSuccessful()){
+
+                                     StringRequest request = new StringRequest(Request.Method.POST, "https://cbnknhhy.lucusvirtual.es/insertar.php", new Response.Listener<String>() {
+                                         @Override
+                                         public void onResponse(String response) {
+                                             if (response.equalsIgnoreCase("Registro Exitoso")) {
+                                                 FirebaseUser user = mAuth.getCurrentUser();
+                                                 updateUI(user);
+                                                 progressDialog.dismiss();
+                                                 Toast.makeText(Register.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
+                                             } else {
+                                                 Toast.makeText(Register.this, response, Toast.LENGTH_SHORT).show();
+                                                 progressDialog.dismiss();
+                                                 Toast.makeText(Register.this, "No se pudo insertar los datos", Toast.LENGTH_SHORT).show();
+                                             }
+                                         }
+                                     }, new Response.ErrorListener() {
+                                         @Override
+                                         public void onErrorResponse(VolleyError error) {
+                                             Toast.makeText(Register.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                                             progressDialog.dismiss();
+                                         }
+                                     }){
+                                         @Override
+                                         protected Map<String, String> getParams() throws AuthFailureError {
+
+                                             Map<String,String>params= new HashMap<String,String>();
+                                             params.put("username", username);
+                                             params.put("nombre", nombre);
+                                             params.put("apellido", apellido);
+                                             params.put("telefono", telefono);
+                                             params.put("email", email);
+
+                                             return params;
+                                         }
+                                     };
+
+                                     RequestQueue requestQueue = Volley.newRequestQueue(Register.this);
+                                     requestQueue.add(request);
+
+                                 } else {
+                                     Toast.makeText(Register.this, "Email ya registrado con Google", Toast.LENGTH_SHORT).show();
+                                     progressDialog.dismiss();
+                                 }
+                             }
+                         });

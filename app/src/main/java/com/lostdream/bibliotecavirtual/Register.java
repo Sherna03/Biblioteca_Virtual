@@ -20,11 +20,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,6 +47,7 @@ public class Register extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 
         //Instanciar la funcion para conectarse con Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -137,52 +141,9 @@ public class Register extends AppCompatActivity {
             VerifyPassword.setError("La contraseña no coincide");
         } else {
             // Inicar metodo
-            emailRegistrado();
+            registroDatos();
         }
     }
-
-    // Metodo para saber e indicar al usuario si un correo ya esta registrado
-    private void emailRegistrado(){
-
-        String email = Email.getText().toString().trim();
-
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Comprobando");
-        progressDialog.show();
-
-        StringRequest request = new StringRequest(Request.Method.POST, "https://cbnknhhy.lucusvirtual.es/TestEmail.php", new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                progressDialog.dismiss();
-
-                if (response.equalsIgnoreCase("Email ya registrado")) {
-                    Email.setError("Email ya registrado");
-
-                } else {
-                    Toast.makeText(Register.this, response, Toast.LENGTH_SHORT).show();
-                    registroDatos();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(Register.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("email", email);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(Register.this);
-        requestQueue.add(request);
-
-    }
-
 
     // Metodo para registrar los datos
     private void registroDatos() {
@@ -200,56 +161,45 @@ public class Register extends AppCompatActivity {
 
         progressDialog.show();
 
+        Map<String,String> params= new HashMap<>();
+        params.put("username", username);
+        params.put("nombre", nombre);
+        params.put("apellido", apellido);
+        params.put("telefono", telefono);
+        params.put("email", email);
+
+
+
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-
-                            StringRequest request = new StringRequest(Request.Method.POST, "https://cbnknhhy.lucusvirtual.es/insertar.php", new Response.Listener<String>() {
-                                @Override
-                                public void onResponse(String response) {
-                                    if (response.equalsIgnoreCase("Registro Exitoso")) {
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        updateUI(user);
-                                        progressDialog.dismiss();
-                                        Toast.makeText(Register.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(Register.this, response, Toast.LENGTH_SHORT).show();
-                                        progressDialog.dismiss();
-                                        Toast.makeText(Register.this, "No se pudo insertar los datos", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(Register.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                                    progressDialog.dismiss();
-                                }
-                            }){
-                                @Override
-                                protected Map<String, String> getParams() throws AuthFailureError {
-
-                                    Map<String,String>params= new HashMap<String,String>();
-                                    params.put("username", username);
-                                    params.put("nombre", nombre);
-                                    params.put("apellido", apellido);
-                                    params.put("telefono", telefono);
-                                    params.put("email", email);
-
-                                    return params;
-                                }
-                            };
-
-                            RequestQueue requestQueue = Volley.newRequestQueue(Register.this);
-                            requestQueue.add(request);
-
+                            String id = mAuth.getCurrentUser().getUid();
+                            FirebaseDatabase.getInstance().getReference().child("data").child(id)
+                                    .setValue(params)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            updateUI(user);
+                                            progressDialog.dismiss();
+                                            Toast.makeText(Register.this, "Registro Exitoso", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(Register.this, "No se pudo insertar los datos", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                         } else {
                             Toast.makeText(Register.this, "Email ya registrado con Google", Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
                     }
                 });
+
     }
 
     // Metodo para indicar que el usuario ya se registro y cambia de actividad

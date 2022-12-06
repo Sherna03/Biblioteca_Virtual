@@ -33,13 +33,13 @@ public class Ajustes extends AppCompatActivity {
             }
         });
 
+
+
         if (user!=null){
             String gmail = user.getEmail();
 
             correo.setText(gmail);
         }
-
-
     }
 
     private void cerrarSesion(){

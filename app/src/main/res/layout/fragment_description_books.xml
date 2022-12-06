@@ -29,13 +29,13 @@
 
 
         <TextView
-            android:id="@+id/Codigo"
+            android:id="@+id/Autor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:gravity="start"
-            android:text="Codigo"
+            android:text="Autor:"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -43,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@+id/Titulo" />
 
         <TextView
-            android:id="@+id/CodigoText"
+            android:id="@+id/AutorText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -53,7 +53,7 @@
             android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Codigo" />
+            app:layout_constraintTop_toBottomOf="@+id/Autor" />
 
         <TextView
             android:id="@+id/Editorial"
@@ -62,12 +62,12 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:gravity="start"
-            android:text="Editorial"
+            android:text="Editorial:"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CodigoText" />
+            app:layout_constraintTop_toBottomOf="@+id/AutorText" />
 
         <TextView
             android:id="@+id/EditorialText"
@@ -89,7 +89,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:gravity="start"
-            android:text="Año del editorial"
+            android:text="Fecha de publicacion:"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -110,13 +110,13 @@
             app:layout_constraintTop_toBottomOf="@+id/YearEditorial" />
 
         <TextView
-            android:id="@+id/NumeroEditorial"
+            android:id="@+id/ISBN"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:gravity="start"
-            android:text="Numero del editorial"
+            android:text="Numero ISBN-13:"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -124,7 +124,7 @@
             app:layout_constraintTop_toBottomOf="@+id/YearText" />
 
         <TextView
-            android:id="@+id/NumeroEditorialText"
+            android:id="@+id/ISBNText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -134,7 +134,7 @@
             android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/NumeroEditorial" />
+            app:layout_constraintTop_toBottomOf="@+id/ISBN" />
 
         <TextView
             android:id="@+id/Description"
@@ -143,50 +143,61 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:gravity="start"
-            android:text="Descripción"
+            android:text="Descripción:"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/NumeroEditorialText" />
+            app:layout_constraintTop_toBottomOf="@+id/ISBNText" />
 
-        <TextView
-            android:id="@+id/DescriptionText"
+
+        <ScrollView
+            android:id="@+id/ScrollDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_height="150dp"
             android:layout_marginTop="8dp"
-            android:text="text"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Description" />
+            app:layout_constraintTop_toBottomOf="@+id/Description">
+
+            <TextView
+                android:id="@+id/DescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="text"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+
+        </ScrollView>
 
         <Button
             android:id="@+id/Leer"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="32dp"
             android:text="Leer"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/DescriptionText" />
+            app:layout_constraintTop_toBottomOf="@+id/ScrollDescription" />
 
         <Button
             android:id="@+id/Descargar"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:text="Descargar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/Leer"
-            app:layout_constraintTop_toBottomOf="@+id/DescriptionText" />
+            app:layout_constraintTop_toBottomOf="@+id/ScrollDescription" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

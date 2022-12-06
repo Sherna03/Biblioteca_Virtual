@@ -4,11 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.google.android.material.transition.Hold;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -16,9 +19,13 @@ import java.util.List;
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookListViewHolder> {
 
     private List<BookList> bookLists;
+    private ViewPager2 viewPager2;
+    private ClickedListener clickedListener;
 
-    public BookListAdapter(List<BookList> bookLists) {
+    public BookListAdapter(List<BookList> bookLists, ViewPager2 viewPager2, ClickedListener clickedListener) {
         this.bookLists = bookLists;
+        this.viewPager2 = viewPager2;
+        this.clickedListener = clickedListener;
     }
 
     @NonNull
@@ -37,6 +44,13 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
     public void onBindViewHolder(@NonNull BookListViewHolder holder, int position) {
         holder.setBookData(bookLists.get(position));
 
+        /*
+
+        if (position == bookLists.size() - 2){
+            viewPager2.post(runnable);
+        }
+
+         */
     }
 
     @Override
@@ -44,7 +58,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
         return bookLists.size();
     }
 
-    static class BookListViewHolder extends RecyclerView.ViewHolder{
+    class BookListViewHolder extends RecyclerView.ViewHolder{
 
         private KenBurnsView kbvBook;
         private TextView textTitle, textRating;
@@ -60,6 +74,25 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
             Picasso.get().load(bookList.imageUrl).into(kbvBook);
             textTitle.setText(bookList.title);
             textRating.setText(String.valueOf(bookList.starRating));
+            kbvBook.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    clickedListener.onPictureClicked(getAdapterPosition(), bookList.title);
+                }
+            });
+
         }
     }
+    /*
+    //Sin uso por consumo excesivo de ram
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            bookLists.addAll(bookLists);
+            //notifyDataSetChanged();
+        }
+    };
+
+     */
 }

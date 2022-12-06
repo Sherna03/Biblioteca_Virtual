@@ -30,6 +30,11 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class Profile extends Fragment {
@@ -39,17 +44,36 @@ public class Profile extends Fragment {
 
     BottomNavigationView bottomNavigationView;
 
+    DatabaseReference mDatabase;
+    FirebaseAuth mAuth;
+
     Leer_mas_tarde leerMasTarde = new Leer_mas_tarde();
     Favoritos favoritos = new Favoritos();
     Comentarios comentarios = new Comentarios();
 
 
-
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mAuth = FirebaseAuth.getInstance();
+
+        String id = mAuth.getCurrentUser().getUid();
+
+        mDatabase.child("data").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    String usernameB = snapshot.child("username").getValue().toString();
+                    username.setText(usernameB);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 
@@ -78,6 +102,8 @@ public class Profile extends Fragment {
         } else {
             getContext();
         }
+
+
 
         button = root.findViewById(R.id.Ajustes);
         button.setOnClickListener(new View.OnClickListener() {
