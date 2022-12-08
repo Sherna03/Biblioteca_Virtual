@@ -21,12 +21,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Description_Books extends DialogFragment {
 
     DatabaseReference mDatabase;
-    FirebaseAuth mAuth;
 
     public String titulo, autor, editorial, year, isbn, description;
     private static String tituloB;
@@ -38,7 +38,7 @@ public class Description_Books extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
+
 
         mDatabase.child("Libros").child(tituloB).addValueEventListener(new ValueEventListener() {
             @Override
@@ -59,7 +59,6 @@ public class Description_Books extends DialogFragment {
                 Toast.makeText(getContext(), "ERROR", Toast.LENGTH_SHORT).show();
             }
         });
-
 
     }
 
