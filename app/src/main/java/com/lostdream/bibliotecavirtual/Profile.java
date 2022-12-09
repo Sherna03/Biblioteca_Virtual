@@ -116,8 +116,7 @@ public class Profile extends Fragment {
 
         bottomNavigationView = root.findViewById(R.id.bottomNavigationProfile);
 
-        //getFragmentManager().beginTransaction().replace(R.id.containerProfile, leerMasTarde).commit();
-        getFragmentManager().beginTransaction().replace(R.id.containerProfile, leerMasTarde).addToBackStack(null).commit();
+        getFragmentManager().beginTransaction().replace(R.id.containerProfile, leerMasTarde).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

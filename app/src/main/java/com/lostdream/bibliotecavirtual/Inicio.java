@@ -34,13 +34,7 @@ public class Inicio extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.BottonNav);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.container, book).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.container, profile).commit();
-        getSupportFragmentManager().beginTransaction().add(R.id.container, search).commit();
-
-        //Esconder
-        getSupportFragmentManager().beginTransaction().hide(profile).commit();
-        getSupportFragmentManager().beginTransaction().hide(search).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, book).commit();
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,19 +43,13 @@ public class Inicio extends AppCompatActivity {
 
                 switch (item.getItemId()){
                     case R.id.Book:
-                        getSupportFragmentManager().beginTransaction().show(book).commit();
-                        getSupportFragmentManager().beginTransaction().hide(search).commit();
-                        getSupportFragmentManager().beginTransaction().hide(profile).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, book).commit();
                         return true;
                     case R.id.Search:
-                        getSupportFragmentManager().beginTransaction().show(search).commit();
-                        getSupportFragmentManager().beginTransaction().hide(book).commit();
-                        getSupportFragmentManager().beginTransaction().hide(profile).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, search).commit();
                         return true;
                     case R.id.Profile:
-                        getSupportFragmentManager().beginTransaction().show(profile).commit();
-                        getSupportFragmentManager().beginTransaction().hide(book).commit();
-                        getSupportFragmentManager().beginTransaction().hide(search).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.container, profile).commit();
                         return true;
                 }
                 return false;

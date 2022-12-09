@@ -57,8 +57,6 @@ public class Search extends Fragment implements ClickedListener {
 
 
 
-
-
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,6 +74,7 @@ public class Search extends Fragment implements ClickedListener {
 
             }
         });
+
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
