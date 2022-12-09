@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import android.view.LayoutInflater;
@@ -14,31 +13,32 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Description_Books extends DialogFragment {
 
     DatabaseReference mDatabase;
+    StorageReference storageReference;
+
 
     public String titulo, autor, editorial, year, isbn, description;
     private static String tituloB;
+    int REQUEST_CODE = 200;
 
     TextView Titulo, AutorText, EditorialText, YearText, ISBNText, DescriptionText;
-    Button leer, Descargar;
+    Button leer, descargar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
 
         mDatabase.child("Libros").child(tituloB).addValueEventListener(new ValueEventListener() {
             @Override
@@ -63,7 +63,6 @@ public class Description_Books extends DialogFragment {
     }
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,11 +75,21 @@ public class Description_Books extends DialogFragment {
         ISBNText = root.findViewById(R.id.ISBNText);
         DescriptionText = root.findViewById(R.id.DescriptionText);
         leer = root.findViewById(R.id.Leer);
+        descargar = root.findViewById(R.id.Leer_Offline);
 
         leer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), Leer.class);
+                intent.putExtra("TITULO", tituloB);
+                startActivity(intent);
+            }
+        });
+
+        descargar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), Leer_Offline.class);
                 intent.putExtra("TITULO", tituloB);
                 startActivity(intent);
             }

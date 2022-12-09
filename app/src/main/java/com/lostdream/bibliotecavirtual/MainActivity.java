@@ -2,10 +2,13 @@ package com.lostdream.bibliotecavirtual;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.splashscreen.SplashScreen;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // Token Google
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
