@@ -24,7 +24,6 @@ public class Inicio extends AppCompatActivity {
     Book book = new Book();
     Search search = new Search();
     Profile profile = new Profile();
-    Leer_mas_tarde leerMasTarde = new Leer_mas_tarde();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
