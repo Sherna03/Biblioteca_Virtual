@@ -42,20 +42,6 @@ public class Search extends Fragment implements ClickedListener {
         reference = FirebaseDatabase.getInstance().getReference().child("Libros");
         lists = new ArrayList<>();
         bookTextAdapter = new BookTextAdapter(lists, this);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_search, container, false);
-
-        recyclerView = root.findViewById(R.id.SearchView);
-        searchView = root.findViewById(R.id.Search);
-        linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(bookTextAdapter);
-
-
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -75,7 +61,18 @@ public class Search extends Fragment implements ClickedListener {
             }
         });
 
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_search, container, false);
+
+        recyclerView = root.findViewById(R.id.SearchView);
+        searchView = root.findViewById(R.id.Search);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(bookTextAdapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
