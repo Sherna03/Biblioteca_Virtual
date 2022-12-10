@@ -12,7 +12,7 @@ public class DescargaCompleta extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)){
-            Toast.makeText(context, "Descarga completa, salga y vuelva a entrar...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Descarga completa, salga y vuelva a entrar...", Toast.LENGTH_LONG).show();
         }
     }
 }

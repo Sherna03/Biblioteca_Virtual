@@ -85,11 +85,10 @@ public class Leer_Offline extends AppCompatActivity {
         registerReceiver(new DescargaCompleta(), new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
 
-        Toast.makeText(this, "Descargando...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Descargando...", Toast.LENGTH_LONG).show();
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalFilesDir(context, DIRECTORY_DOWNLOADS, fileName + fileExtension);
 
         downloadManager.enqueue(request);

@@ -25,12 +25,9 @@ import java.util.Objects;
 public class Description_Books extends DialogFragment {
 
     DatabaseReference mDatabase;
-    StorageReference storageReference;
-
 
     public String titulo, autor, editorial, year, isbn, description;
     private static String tituloB;
-    int REQUEST_CODE = 200;
 
     TextView Titulo, AutorText, EditorialText, YearText, ISBNText, DescriptionText;
     Button leer, descargar;
