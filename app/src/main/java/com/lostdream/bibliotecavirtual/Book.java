@@ -121,26 +121,26 @@ public class Book extends Fragment implements ClickedListener{
         List<BookList> bookLists2 = new ArrayList<>();
 
         BookList bookList2First = new BookList();
-        bookList2First.imageUrl = "https://www.marcialpons.es/media/img/portadas/9788415436676.jpg";
-        bookList2First.title = "La Guerra De Stalin";
+        bookList2First.imageUrl = "https://kbimages1-a.akamaihd.net/72de175e-66c0-4509-8f2c-6d1f42710cf7/1200/1200/False/jaque-al-psicoanalista.jpg";
+        bookList2First.title = "Jaque Al Psicoanalista";
         bookList2First.starRating = 5.0f;
         bookLists2.add(bookList2First);
 
         BookList bookList2Second = new BookList();
-        bookList2Second.imageUrl = "https://i.pinimg.com/originals/29/80/f0/2980f0e3584a8b192c135740c6f756aa.jpg";
-        bookList2Second.title = "La Guerra De Los Treinta Años";
+        bookList2Second.imageUrl = "https://locatelcolombia.vtexassets.com/arquivos/ids/236182/9789585993679_1_LIBRO-EL-PSICOANALISTA.jpg?v=637535128630130000";
+        bookList2Second.title = "El Psicoanalista";
         bookList2Second.starRating = 4.9f;
         bookLists2.add(bookList2Second);
 
         BookList bookList2Third = new BookList();
-        bookList2Third.imageUrl = "https://katakrak.net/sites/default/files/styles/extra_large/public/portadas/9788494289057.jpeg?itok=-tv8Q9Sg";
-        bookList2Third.title = "La Segunda Guerra Mundial";
+        bookList2Third.imageUrl = "https://www.perlego.com/books/RM_Books/libranda_xpmioj/9788423343362.jpg";
+        bookList2Third.title = "1984";
         bookList2Third.starRating = 4.8f;
         bookLists2.add(bookList2Third);
 
         BookList bookList2Fourth = new BookList();
-        bookList2Fourth.imageUrl = "https://cdn1.despertaferro-ediciones.com/wp-content/uploads/2017/02/portada-titanes-2ED.jpg";
-        bookList2Fourth.title = "Choque De Titanes";
+        bookList2Fourth.imageUrl = "https://pbs.twimg.com/media/EmVsOB6XUAAszHV?format=jpg&name=large";
+        bookList2Fourth.title = "Rebelión En La Granja";
         bookList2Fourth.starRating = 4.6f;
         bookLists2.add(bookList2Fourth);
 
