@@ -5,9 +5,11 @@ import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 import android.Manifest;
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -57,11 +59,13 @@ public class Leer_Offline extends AppCompatActivity {
             Descargar();
         } else {
             Uri uri = Uri.fromFile(file);
+
             libroPDFOffline.fromUri(uri).enableSwipe(true).pageSnap(true).autoSpacing(true).pageFling(true).fitEachPage(true).load();
         }
     }
 
     void Descargar(){
+
         storageReference.child("Libros").child(titulo + ".pdf")
                 .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
@@ -78,12 +82,14 @@ public class Leer_Offline extends AppCompatActivity {
     }
 
     void DescargarFile(Context context, String fileName, String fileExtension, String url){
+        registerReceiver(new DescargaCompleta(), new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+
+        Toast.makeText(this, "Descargando...", Toast.LENGTH_SHORT).show();
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
-
-
-        Toast.makeText(this, "Descargando, salga y vuelva a entrar...", Toast.LENGTH_LONG).show();
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalFilesDir(context, DIRECTORY_DOWNLOADS, fileName + fileExtension);
 
         downloadManager.enqueue(request);
