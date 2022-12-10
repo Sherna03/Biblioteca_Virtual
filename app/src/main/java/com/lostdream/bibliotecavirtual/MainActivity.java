@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,7 +38,6 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity {
 
-
     //Variables de objetos de interfaz llamados
     TextInputEditText Password;
     EditText Email;
@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Variables
     String email, password;
-    //String url = "https://cbnknhhy.lucusvirtual.es/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
