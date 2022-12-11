@@ -9,7 +9,8 @@ Esta es una aplicación para Android desarrollada en Android Studio, en el lengu
 La base de datos principalmente fue en MySQL con PHP, pero por razones de cobro la cambia a el servicio gratuito de Firebase, donde utilizo
 la base de datos NoSQL de Firebase y el Storage de Firebase, también utilizo la función de autenticación.
 
-El apk para instalar quedara en la carpeta agregada por mi parte ubicada en "Biblioteca_Virtual/apk/apk_debbug.apk
+El APK para instalar quedara en la carpeta APK, por razones de limite de tamaño permitido en GitHub, no pude subirlo por este medio,
+lo he subido a Google Drive, el link de acceso "https://drive.google.com/drive/folders/15A_2ZB2SJe6C-ucYhZaBvme5VWDtCIYj?usp=sharing"
 
 El código principal de java queda en el siguiente link "https://github.com/Sherna03/Biblioteca_Virtual/tree/main/app/src/main/java/com/lostdream/bibliotecavirtual"
 
