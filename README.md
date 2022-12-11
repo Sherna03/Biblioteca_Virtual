@@ -6,7 +6,7 @@ El grupo se conforma de tres personas, en las cuales nos hemos distribuido las t
 
 Esta es una aplicación para Android desarrollada en Android Studio, en el lenguaje de programación Java.
 
-La base de datos principalmente fue en MySQL con PHP, pero por razones de cobro la cambia a el servicio gratuito de Firebase, donde utilizo
+La base de datos principalmente fue en MySQL con PHP, pero por razones de cobro lo cambie a el servicio gratuito de Firebase, donde utilizo
 la base de datos NoSQL de Firebase y el Storage de Firebase, también utilizo la función de autenticación.
 
 El APK para instalar quedara en la carpeta APK, por razones de limite de tamaño permitido en GitHub, no pude subirlo por este medio,
