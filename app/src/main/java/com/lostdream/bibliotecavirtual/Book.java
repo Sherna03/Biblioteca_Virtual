@@ -1,8 +1,6 @@
 package com.lostdream.bibliotecavirtual;
 
-import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -14,20 +12,14 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 public class Book extends Fragment implements ClickedListener{
 
@@ -45,16 +37,6 @@ public class Book extends Fragment implements ClickedListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_book, container, false);
-        /*
-        buttonLeer = root.findViewById(R.id.Reciente_Book_1);
-        buttonLeer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Description_Books description_books = new Description_Books();
-                description_books.show(getFragmentManager(), "Description Book");
-            }
-        });
-        */
 
         imgProfile = root.findViewById(R.id.imgProfile);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

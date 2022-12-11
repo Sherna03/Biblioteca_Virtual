@@ -56,6 +56,9 @@ public class Search extends Fragment implements ClickedListener {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(bookTextAdapter);
 
+        //Llamar a la base de datos y pedir la informacion de la base de datos de los libros
+        //Luego guardar la informacion en un Array
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -82,6 +85,7 @@ public class Search extends Fragment implements ClickedListener {
 
             @Override
             public boolean onQueryTextChange(String s) {
+                //En case de que escriban en el buscador
                 buscar(s);
                 return false;
             }
@@ -95,6 +99,8 @@ public class Search extends Fragment implements ClickedListener {
     private void buscar(String s) {
         ArrayList<BookText> List = new ArrayList<>();
 
+        //Buscar en el Array antes creado el nombre del titulo o autor
+
         for (BookText obj: lists){
             if (obj.getTitulo().toLowerCase().contains(s.toLowerCase()) | obj.getAutor().toLowerCase().contains(s.toLowerCase())){
                 List.add(obj);
@@ -104,6 +110,7 @@ public class Search extends Fragment implements ClickedListener {
         }
     }
 
+    //Al clickear un Objeto del RecyclerView, entrar a un nuevo fragmento
     @Override
     public void onPictureClicked(int position, String titulo) {
         //Iniciar Fragment

@@ -46,18 +46,25 @@ public class Leer_Offline extends AppCompatActivity {
         setContentView(R.layout.activity_leer_offline);
         storageReference = FirebaseStorage.getInstance().getReference();
 
+        //Llamar objetos PDFview en pantalla
+
         titulo = getIntent().getStringExtra("TITULO");
 
         libroPDFOffline = findViewById(R.id.viewPDFOffline);
         libroPDFOffline.setMidZoom(1f);
 
+        //Encontrar el libro en el almacenamiento interno
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File descargas = contextWrapper.getExternalFilesDir(DIRECTORY_DOWNLOADS);
         File file = new File(descargas, titulo+".pdf");
 
         if (!file.exists()){
+            //Si el libro no existe en el almacenamiento interno
+            //Descargar
             Descargar();
         } else {
+
+            //Si el libro ya esta descargado, mostrarlo en pantalla
             Uri uri = Uri.fromFile(file);
 
             libroPDFOffline.fromUri(uri).enableSwipe(true).pageSnap(true).autoSpacing(true).pageFling(true).fitEachPage(true).load();
@@ -65,12 +72,13 @@ public class Leer_Offline extends AppCompatActivity {
     }
 
     void Descargar(){
-
+        //Llamar al servidor y pedir descargar el pdf por el titulo
         storageReference.child("Libros").child(titulo + ".pdf")
                 .getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
                         String url = uri.toString();
+                        //Llamar a la función para descargar el libro
                         DescargarFile(Leer_Offline.this, titulo, ".pdf", url);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -82,15 +90,18 @@ public class Leer_Offline extends AppCompatActivity {
     }
 
     void DescargarFile(Context context, String fileName, String fileExtension, String url){
+        //Comprobar que el libro ya se descargo
         registerReceiver(new DescargaCompleta(), new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
-
 
         Toast.makeText(this, "Descargando...", Toast.LENGTH_LONG).show();
         DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
+
+        //Ruta y archivo a descargar
         request.setDestinationInExternalFilesDir(context, DIRECTORY_DOWNLOADS, fileName + fileExtension);
 
+        //Descargar libro por medio de DownloadManager
         downloadManager.enqueue(request);
     }
 }

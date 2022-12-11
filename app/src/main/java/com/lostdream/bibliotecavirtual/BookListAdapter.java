@@ -4,23 +4,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.flaviofaria.kenburnsview.KenBurnsView;
-import com.google.android.material.transition.Hold;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookListViewHolder> {
 
-    private List<BookList> bookLists;
+    private final List<BookList> bookLists;
     private ViewPager2 viewPager2;
-    private ClickedListener clickedListener;
+    private final ClickedListener clickedListener;
+
+    //Crear diferentes Items-card depdendiendo de los titulos, imagenes y calificación
 
     public BookListAdapter(List<BookList> bookLists, ViewPager2 viewPager2, ClickedListener clickedListener) {
         this.bookLists = bookLists;
@@ -59,9 +56,10 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
     }
 
     class BookListViewHolder extends RecyclerView.ViewHolder{
-
-        private KenBurnsView kbvBook;
-        private TextView textTitle, textRating;
+        //llamar elementos de la clase Item-Card
+        private final KenBurnsView kbvBook;
+        private final TextView textTitle;
+        private final TextView textRating;
 
         BookListViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +69,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookLi
         }
 
         void setBookData(BookList bookList){
+            //Insertar la información
             Picasso.get().load(bookList.imageUrl).into(kbvBook);
             textTitle.setText(bookList.title);
             textRating.setText(String.valueOf(bookList.starRating));

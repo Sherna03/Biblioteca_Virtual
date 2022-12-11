@@ -18,13 +18,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.Objects;
 
 public class Description_Books extends DialogFragment {
 
     DatabaseReference mDatabase;
+
+    //Variables
 
     public String titulo, autor, editorial, year, isbn, description;
     private static String tituloB;
@@ -37,6 +38,8 @@ public class Description_Books extends DialogFragment {
         super.onCreate(savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
+        //Llmar informacion de la base de datos
+
         mDatabase.child("Libros").child(tituloB).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -47,6 +50,8 @@ public class Description_Books extends DialogFragment {
                     year = Objects.requireNonNull(snapshot.child("year").getValue()).toString();
                     isbn = Objects.requireNonNull(snapshot.child("isbn").getValue()).toString();
                     description = Objects.requireNonNull(snapshot.child("description").getValue()).toString();
+
+                    //Enviar información a la función para mostrarlo
                     MostrarDatosLibro(titulo, autor, editorial, year, isbn, description);
                 }
             }
@@ -77,6 +82,7 @@ public class Description_Books extends DialogFragment {
         leer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Pasar a la actividad Leer
                 Intent intent = new Intent(getContext(), Leer.class);
                 intent.putExtra("TITULO", tituloB);
                 startActivity(intent);
@@ -86,6 +92,7 @@ public class Description_Books extends DialogFragment {
         descargar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Pasar a la actividad Leer Offline
                 Intent intent = new Intent(getContext(), Leer_Offline.class);
                 intent.putExtra("TITULO", tituloB);
                 startActivity(intent);
@@ -96,10 +103,12 @@ public class Description_Books extends DialogFragment {
     }
 
      static void Rdata(Bundle bundle){
+        //Recibir titulo
         tituloB = (String) bundle.getSerializable("titulo");
     }
 
     void MostrarDatosLibro(String titulo, String autor, String editorial, String year, String isbn, String description){
+        //Mostrar información en pantalla
         Titulo.setText(titulo);
         AutorText.setText(autor);
         EditorialText.setText(editorial);

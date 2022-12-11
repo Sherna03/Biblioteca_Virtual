@@ -60,6 +60,7 @@ public class Profile extends Fragment {
 
         String id = mAuth.getCurrentUser().getUid();
 
+        //Cargar username de la base de datos
         mDatabase.child("data").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -94,10 +95,11 @@ public class Profile extends Fragment {
         username = root.findViewById(R.id.usernameProfile);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user!=null){
+            //Si es iniciado por google, cargar nombre de la cuenta
             String name = user.getDisplayName();
 
             username.setText(name);
-
+            //Cargar foto de perfil de google
             Picasso.get().load(user.getPhotoUrl()).placeholder(R.drawable.login).into(imgProfile);
         } else {
             getContext();
@@ -121,6 +123,7 @@ public class Profile extends Fragment {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //Cambiar de fragments
                 switch (item.getItemId()){
                     case R.id.LeerMasTarde:
                         assert getFragmentManager() != null;

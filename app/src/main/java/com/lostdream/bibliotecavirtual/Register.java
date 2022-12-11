@@ -161,6 +161,7 @@ public class Register extends AppCompatActivity {
 
         progressDialog.show();
 
+        //Hasmap para guardar datos del usuario registrado y enviarlos a la base de datos
         Map<String,String> params= new HashMap<>();
         params.put("username", username);
         params.put("nombre", nombre);
